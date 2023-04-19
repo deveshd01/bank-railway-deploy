@@ -51,8 +51,7 @@ public class CounterController {
 		try {
 			counterService.addTokenAgain(tokenId, counterId);
 			status.setStatus(true);
-			status.setMessage("Token Added in Queue.... with CounterId : " + counterId + "  & tokenId " + tokenId
-					+ "......!!!!!! ");
+			status.setMessage("Token Added in Queue.... with CounterId : " + counterId + "  & tokenId " + tokenId + "......!!!!!! ");
 		} catch (MyException e) {
 			status.setStatus(false);
 			status.setMessage(e.getMessage());
@@ -68,7 +67,7 @@ public class CounterController {
 		
 		Set<Integer> serviceIds = counterModel.getServiceIds();
 	
-		System.out.println("-----------------");
+		
 		RequestStatus status = new RequestStatus();
 		try {
 			counterService.updateCounterService(counter, operation, serviceIds);

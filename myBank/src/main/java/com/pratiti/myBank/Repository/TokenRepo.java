@@ -15,6 +15,9 @@ public interface TokenRepo extends JpaRepository<Token, Integer> {
 //	 c.counterOpen=1 AND
 	@Query("SELECT c FROM Counter c JOIN c.service s WHERE c.counterOpen=0 AND s.s_id = :serviceId")
 	List<Counter> findCounterByServiceId(@Param("serviceId") int serviceId);
+
+	@Query("SELECT t FROM Token t WHERE t.status='PENDING' OR t.status='NOSHOW' ")
+	List<Token> findAllActiveTokens();
 	
 
 	

@@ -36,13 +36,13 @@ public class TokenService {
 		Counter smallCounter = selectBestCounter(service); // counter with This Service & minimum Queue Length
 
 		smallCounter.updateQueueTotalTime(token.getService());
-		
-		token.setCounter(smallCounter);		
+
+		token.setCounter(smallCounter);
 		token.setCounterNumber(smallCounter.getCounterNo());
-		
+
 		tokenRepo.save(token);
 		counterRepo.save(smallCounter);
-		
+
 		// TokenModel to Return
 		TokenModel tm = new TokenModel();
 		tm.setCounterNo(token.getCounterNumber());
@@ -84,7 +84,7 @@ public class TokenService {
 			if (t.compareTo(i) == 1)
 				t = i;
 		}
-		
+
 		TokenModel tm = new TokenModel();
 		tm.setTokenNo(t.getTokenNo());
 		tm.setTokenId(t.getId());
@@ -96,7 +96,7 @@ public class TokenService {
 
 		return tm;
 	}
-	
+
 //	public int switchQueue(int tokenId) {
 //		Token token = tokenRepo.findById(tokenId).get();
 //		Counter bestCounter = selectBestCounter(token.getService());
@@ -116,6 +116,32 @@ public class TokenService {
 		return smallCounter;
 	}
 
+	public Queue<Token> findAllActiveTokens() {
+		List<Token> tokenList = tokenRepo.findAllActiveTokens();
+		Queue<Token> Q = new PriorityQueue<>();
+		for (Token i : tokenList) {
+			Q.add(i);
+		}
+		return Q;
+	}
+
+	public TokenModel nextActiveToken() {
+		Queue<Token> Q = findAllActiveTokens();
+
+		Token t = Q.peek();
+
+		TokenModel tm = new TokenModel();
+		tm.setTokenNo(t.getTokenNo());
+		tm.setTokenId(t.getId());
+		tm.setServiceName(t.getService().getServiceName());
+
+		// Remove token from counter Queue
+		t.setCounter(null);
+		tokenRepo.save(t);
+
+		return tm;
+	}
+
 //	public TokenModel findByTokenNo(int tokenId) {
 //		Token token = tokenRepo.findById(tokenId).get();
 //		
@@ -127,7 +153,5 @@ public class TokenService {
 //		
 //		return null;
 //	}
-
-	
 
 }

@@ -1,5 +1,6 @@
 package com.pratiti.myBank.Controller;
 
+
 import java.util.Queue;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,14 +56,33 @@ public class TokenController {
 		return status;
 	}
 	
+//	@GetMapping("/getFullQueue")
+//	public Queue<Token> getFullQueue(@RequestParam int counterId) {
+//			return tokenService.getFullQueue(counterId );
+//	}
+//	
+//	@GetMapping("/nextToken")
+//	public TokenModel nextToken(@RequestParam int counterId) {
+//			return tokenService.nextToken(counterId );
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping("/getFullQueue")
 	public Queue<Token> getFullQueue(@RequestParam int counterId) {
-			return tokenService.getFullQueue(counterId );
+			return tokenService.findAllActiveTokens();
 	}
+	
 	
 	@GetMapping("/nextToken")
 	public TokenModel nextToken(@RequestParam int counterId) {
-			return tokenService.nextToken(counterId );
+			return tokenService.nextActiveToken();
 	}
 	
 //	@GetMapping("/findByTokenNo")
