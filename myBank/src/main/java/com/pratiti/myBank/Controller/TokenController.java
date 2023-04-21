@@ -67,12 +67,7 @@ public class TokenController {
 //	}
 	
 	
-	
-	
-	
-	
-	
-	
+
 	
 	@GetMapping("/getFullQueue")
 	public Queue<Token> getFullQueue(@RequestParam int counterId) {
